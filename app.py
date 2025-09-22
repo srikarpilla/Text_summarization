@@ -52,7 +52,7 @@ def summarize_pdf(pdf_file_path, custom_prompt_text):
 def main():
     st.set_page_config(page_title="Custom PDF Summarizer", page_icon="✍", layout="wide")
     
-    st.title("✍ Custom PDF Summarizer with Gemini")
+    st.title("✍ Custom PDF Summarizer ")
     st.markdown("This app allows you to upload a PDF file, provide a custom instruction (a prompt), and get a tailored summary .")
 
     uploaded_file = st.file_uploader("*1. Upload your PDF file*", type="pdf")
@@ -86,3 +86,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
