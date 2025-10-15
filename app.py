@@ -6,21 +6,19 @@ from langchain_core.prompts import PromptTemplate
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains.summarize import load_summarize_chain
 from dotenv import load_dotenv
-import google.generativeai as genai
+from google import genai
 
 load_dotenv('API.env')
 
 def get_valid_gemini_model(api_key):
     try:
-        genai.configure(api_key=api_key)
-        models = genai.list_models()
+        client = genai.Client(api_key=api_key)
+        models = client.list_models()
         candidate_models = [m.name for m in models if "gemini" in m.name.lower()]
         if not candidate_models:
             raise ValueError("No Gemini models available")
-        # Prefer higher version models if any naming convention exists, else pick first
         candidate_models.sort(reverse=True)
         for candidate in candidate_models:
-            # You may add a test query here if you want to confirm usage
             return candidate
     except Exception as e:
         st.error(f"Error fetching Gemini models: {e}")
@@ -44,6 +42,7 @@ def summarize_pdf(pdf_file_path, custom_prompt_text, api_key):
     )
 
     prompt_template = custom_prompt_text + """
+
 
     {text}
 
