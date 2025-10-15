@@ -5,10 +5,7 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_core.prompts import PromptTemplate
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains.summarize import load_summarize_chain
-from dotenv import load_dotenv
 from google import genai
-
-load_dotenv('API.env')
 
 def get_valid_gemini_model(api_key):
     try:
@@ -73,9 +70,9 @@ def main():
         custom_prompt = st.text_area("Enter your custom prompt", height=150, placeholder="Summarize the key findings for a non-technical audience.")
 
         if st.button("Generate Summary"):
-            api_key = os.getenv("GEMINI_API_KEY")
+            api_key = st.secrets.get("GEMINI_API_KEY")
             if not api_key:
-                st.error("GEMINI_API_KEY not found. Please set it in API.env file.")
+                st.error("GEMINI_API_KEY not found in Streamlit secrets.")
                 return
             
             if not custom_prompt:
