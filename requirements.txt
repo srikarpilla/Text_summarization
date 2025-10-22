@@ -4,6 +4,6 @@ langchain==0.3.27
 langchain-core==0.3.79
 langchain-google-genai==2.0.10
 google-generativeai==0.8.5
-pypdf==3.8.1
+pypdf  # remove the version pin
 unstructured==0.18.15
 unstructured-client==0.42.3
